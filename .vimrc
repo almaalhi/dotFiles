@@ -52,17 +52,15 @@ nnoremap <C-b> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
 
-
-"--------------------------------------------------------------------------------------------------
 "--------------------------------------------------------------------------------------------------
 "------------------------------  WINDOW MANAGEMENT/MOVEMENT  --------------------------------------
+"--------------------------------------------------------------------------------------------------
 
 "Move between windows
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
-
 
 
 "--------------------------------------------------------------------------------------------------
@@ -113,6 +111,7 @@ nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
 nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 nnoremap <leader>cr :CocRestart
 
+
 "--------------------------------------------------------------------------------------------------
 "----------------------------------FUZZY FINDER CONFIG --------------------------------------------
 "--------------------------------------------------------------------------------------------------
@@ -145,7 +144,6 @@ nnoremap <Leader>s :Rg<SPACE>
 nnoremap <Leader>b :Buffers<CR>
 "Search files by name in current directory
 nnoremap <C-p> :GFiles<CR>
-
 
 
 "--------------------------------------------------------------------------------------------------
