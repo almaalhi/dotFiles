@@ -98,3 +98,4 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias config='/usr/bin/git --git-dir=/Users/Alex_Alvarado/.cfg/ --work-tree=/Users/Alex_Alvarado'
+alias cowss='fortune | cowsay -f dragon'

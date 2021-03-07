@@ -1,5 +1,5 @@
 source $VIMRUNTIME/defaults.vim
-:set relativenumber
+":set relativenumber
 :set nu
 :set hls
 :set cmdheight=2
@@ -22,6 +22,7 @@ Plug 'jiangmiao/auto-pairs'
 Plug 'airblade/vim-gitgutter'
 Plug 'honza/vim-snippets'
 Plug 'preservim/nerdcommenter'
+Plug 'alvan/vim-closetag'
 
 " Fuzzy Finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -40,7 +41,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
 
-
+"--------------------------------------------------------------------------------------------------
 "-------------------------------------- NERDtree --------------------------------------------------
 "--------------------------------------------------------------------------------------------------
 
@@ -52,6 +53,7 @@ nnoremap <C-f> :NERDTreeFind<CR>
 
 
 
+"--------------------------------------------------------------------------------------------------
 "--------------------------------------------------------------------------------------------------
 "------------------------------  WINDOW MANAGEMENT/MOVEMENT  --------------------------------------
 
@@ -65,6 +67,7 @@ nnoremap <leader>l :wincmd l<CR>
 
 "--------------------------------------------------------------------------------------------------
 "---------------------------------------  COC  ----------------------------------------------------
+"--------------------------------------------------------------------------------------------------
 
 " Use K to show documentation in preview window.
 nnoremap <silent> K :call <SID>show_documentation()<CR>
@@ -110,6 +113,7 @@ nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
 nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 nnoremap <leader>cr :CocRestart
 
+"--------------------------------------------------------------------------------------------------
 "----------------------------------FUZZY FINDER CONFIG --------------------------------------------
 "--------------------------------------------------------------------------------------------------
 
@@ -130,8 +134,10 @@ let mapleader = " "
 
 let g:vrfr_rg = 'true'
 
+
 "--------------------------------------------------------------------------------------------------
 "------------------------------------  SEARCH REMAPS  ---------------------------------------------
+"--------------------------------------------------------------------------------------------------
 
 "Search inside the files in current directory
 nnoremap <Leader>s :Rg<SPACE>
@@ -140,3 +146,22 @@ nnoremap <Leader>b :Buffers<CR>
 "Search files by name in current directory
 nnoremap <C-p> :GFiles<CR>
 
+
+
+"--------------------------------------------------------------------------------------------------
+"----------------------------------  HTML vim-closetag --------------------------------------------
+"--------------------------------------------------------------------------------------------------
+
+let g:closetag_filenames = '*.html'
+let g:closetag_filetypes = 'html,jsx,javascript'
+
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+let g:closetag_emptyTags_caseSensitive = 0
+" Disables auto-close if not in a valid region (based on filetype)
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+let g:closetag_shortcut = '>'
