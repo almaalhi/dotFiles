@@ -1,5 +1,5 @@
 source $VIMRUNTIME/defaults.vim
-":set relativenumber
+:set relativenumber
 :set nu
 :set hls
 :set cmdheight=2
@@ -10,6 +10,9 @@ source $VIMRUNTIME/defaults.vim
 :set smartindent
 :set signcolumn=yes
 :set scrolloff=8 " Keep 8 lines below the cursor
+:set updatetime=300
+:set encoding=utf-8
+:set hidden
 :let mapleader = " "
 
 " VIM-Plug plugins list
@@ -31,6 +34,7 @@ Plug 'junegunn/fzf.vim'
 " Theme
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
+Plug 'crusoexia/vim-monokai'
 
 " NERDTree
 Plug 'preservim/nerdtree'
@@ -41,13 +45,25 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 call plug#end()
 
 
+" Theme settings
+syntax on
+colorscheme monokai
+set termguicolors
+
+"--------------------------------------------------------------------------------------------------
+"-------------------------------------- General remaps --------------------------------------------
+"--------------------------------------------------------------------------------------------------
+
+" Quick save and quit
+nnoremap <leader>w :w<cr>
+nnoremap <leader>q :q<cr>
+
+
 "--------------------------------------------------------------------------------------------------
 "-------------------------------------- NERDtree --------------------------------------------------
 "--------------------------------------------------------------------------------------------------
 
-" Key mapping
 nnoremap <leader>n :NERDTreeFocus<CR>
-nnoremap <C-n> :NERDTree<CR>
 nnoremap <C-b> :NERDTreeToggle<CR>
 nnoremap <C-f> :NERDTreeFind<CR>
 
@@ -56,12 +72,13 @@ nnoremap <C-f> :NERDTreeFind<CR>
 "------------------------------  WINDOW MANAGEMENT/MOVEMENT  --------------------------------------
 "--------------------------------------------------------------------------------------------------
 
-"Move between windows
+" Move between windows
 nnoremap <leader>h :wincmd h<CR>
 nnoremap <leader>j :wincmd j<CR>
 nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
-
+" Make current window only window
+nnoremap <leader>o :wincmd o<CR>
 
 "--------------------------------------------------------------------------------------------------
 "---------------------------------------  COC  ----------------------------------------------------
@@ -86,7 +103,7 @@ inoremap <silent><expr> <TAB>
             \ <SID>check_back_space() ? "\<TAB>" :
             \ coc#refresh()
 
-
+" Prettier format on save
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
 inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 inoremap <silent><expr> <C-space> coc#refresh()
@@ -95,9 +112,6 @@ inoremap <silent><expr> <C-space> coc#refresh()
 let g:coc_snippet_next = '<tab>'
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
-:set updatetime=300
-:set encoding=utf-8
-:set hidden
 
 " GoTo code navigation.
 nmap <leader>gd <Plug>(coc-definition)
@@ -117,11 +131,10 @@ nnoremap <leader>cr :CocRestart
 "--------------------------------------------------------------------------------------------------
 
 "Config fuzzi finder
-nnoremap <C-p> :FZF<CR>
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-i': 'vsplit'
+  \ 'ctrl-x': 'split',
+  \ 'ctrl-o': 'vsplit'
   \}
 
 if executable('rg')
@@ -144,6 +157,7 @@ nnoremap <Leader>s :Rg<SPACE>
 nnoremap <Leader>b :Buffers<CR>
 "Search files by name in current directory
 nnoremap <C-p> :GFiles<CR>
+nnoremap <Leader>p :Files<CR>
 
 
 "--------------------------------------------------------------------------------------------------
@@ -163,3 +177,13 @@ let g:closetag_regions = {
 
 " Shortcut for closing tags, default is '>'
 let g:closetag_shortcut = '>'
+
+
+"--------------------------------------------------------------------------------------------------
+"----------------------------------  Navigation Remaps --------------------------------------------
+"--------------------------------------------------------------------------------------------------
+
+" Navigate previous/next tab
+nnoremap <Leader>y gT
+nnoremap <Leader>u gt
+
