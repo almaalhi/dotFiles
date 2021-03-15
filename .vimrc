@@ -13,6 +13,7 @@ source $VIMRUNTIME/defaults.vim
 :set updatetime=300
 :set encoding=utf-8
 :set hidden
+:set nowrap
 :let mapleader = " "
 
 " VIM-Plug plugins list
@@ -41,6 +42,7 @@ Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/nerdtree-project-plugin'
 
 call plug#end()
 
@@ -112,6 +114,9 @@ inoremap <silent><expr> <C-space> coc#refresh()
 let g:coc_snippet_next = '<tab>'
 inoremap <expr> <cr> pumvisible() ? "\<C-y>" : "\<C-g>u\<CR>"
 
+" Move position for placeholders
+let g:coc_snippet_next = '<c-j>'
+let g:coc_snippet_prev = '<c-k>'
 
 " GoTo code navigation.
 nmap <leader>gd <Plug>(coc-definition)
