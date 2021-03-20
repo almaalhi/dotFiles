@@ -27,6 +27,9 @@ Plug 'airblade/vim-gitgutter'
 Plug 'honza/vim-snippets'
 Plug 'preservim/nerdcommenter'
 Plug 'alvan/vim-closetag'
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
+Plug 'mattn/emmet-vim'
+Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
 
 " Fuzzy Finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -57,8 +60,8 @@ set termguicolors
 "--------------------------------------------------------------------------------------------------
 
 " Quick save and quit
-nnoremap <leader>w :w<cr>
-nnoremap <leader>q :q<cr>
+nnoremap <leader>s :w<cr>
+nnoremap <leader>w :q<cr>
 
 
 "--------------------------------------------------------------------------------------------------
@@ -77,9 +80,13 @@ autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
 
+" Key remaps for opening in a split/vsplit
+let NERDTreeMapOpenVSplit='v'
+let NERDTreeMapOpenSplit='x'
+
 
 "--------------------------------------------------------------------------------------------------
-"------------------------------  WINDOW MANAGEMENT/MOVEMENT  --------------------------------------
+"------------------------------  WINDOW AND TAB MANAGEMENT/MOVEMENT  ------------------------------
 "--------------------------------------------------------------------------------------------------
 
 " Move between windows
@@ -89,6 +96,12 @@ nnoremap <leader>k :wincmd k<CR>
 nnoremap <leader>l :wincmd l<CR>
 " Make current window only window
 nnoremap <leader>o :wincmd o<CR>
+
+
+" Navigate previous/next tab
+nnoremap <leader>y gT
+nnoremap <leader>u gt
+
 
 "--------------------------------------------------------------------------------------------------
 "---------------------------------------  COC  ----------------------------------------------------
@@ -147,7 +160,7 @@ nnoremap <leader>cr :CocRestart
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
-  \ 'ctrl-o': 'vsplit'
+  \ 'ctrl-v': 'vsplit'
   \}
 
 if executable('rg')
@@ -165,7 +178,7 @@ let g:vrfr_rg = 'true'
 "--------------------------------------------------------------------------------------------------
 
 "Search inside the files in current directory
-nnoremap <Leader>s :Rg<SPACE>
+nnoremap <Leader>pp :Rg<SPACE>
 "Search current buffer
 nnoremap <Leader>b :Buffers<CR>
 "Search files by name in current directory
@@ -193,10 +206,13 @@ let g:closetag_shortcut = '>'
 
 
 "--------------------------------------------------------------------------------------------------
-"----------------------------------  Navigation Remaps --------------------------------------------
+"----------------------------------  Markdown Preview  --------------------------------------------
 "--------------------------------------------------------------------------------------------------
 
-" Navigate previous/next tab
-nnoremap <Leader>y gT
-nnoremap <Leader>u gt
 
+" Set default browser for Markdown Preview
+let g:mkdp_browser = 'firefox'
+
+" Start liveserver
+nnoremap <C-t> :Bracey <CR>
+nnoremap <C-g> :BraceyStop <CR>
