@@ -50,11 +50,6 @@ Plug 'scrooloose/nerdtree-project-plugin'
 call plug#end()
 
 
-" Theme settings
-syntax on
-colorscheme monokai
-set termguicolors
-
 "--------------------------------------------------------------------------------------------------
 "-------------------------------------- General remaps --------------------------------------------
 "--------------------------------------------------------------------------------------------------
@@ -62,6 +57,30 @@ set termguicolors
 " Quick save and quit
 nnoremap <leader>s :w<cr>
 nnoremap <leader>w :q<cr>
+
+" TAB in general mode will move to text buffer
+nnoremap <TAB> :bnext<CR>
+
+" SHIFT-TAB will go back
+nnoremap <S-TAB> :bprevious<CR>
+
+" Use control-c instead of escape
+nnoremap <C-c> <Esc>
+
+
+
+"--------------------------------------------------------------------------------------------------
+"-------------------------------------- Theme Settings  -------------------------------------------
+"--------------------------------------------------------------------------------------------------
+
+syntax on
+colorscheme monokai
+set termguicolors
+
+" Airline settings
+let g:airline#extensions#tabline#enabled = 1
+set noshowmode
+
 
 
 "--------------------------------------------------------------------------------------------------
@@ -80,9 +99,10 @@ autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
 
-" Key remaps for opening in a split/vsplit
+" Key remaps for split/vsplit (To match FZF)
 let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapOpenSplit='x'
+
 
 
 "--------------------------------------------------------------------------------------------------
@@ -101,6 +121,7 @@ nnoremap <leader>o :wincmd o<CR>
 " Navigate previous/next tab
 nnoremap <leader>y gT
 nnoremap <leader>u gt
+
 
 
 "--------------------------------------------------------------------------------------------------
@@ -152,6 +173,7 @@ nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 nnoremap <leader>cr :CocRestart
 
 
+
 "--------------------------------------------------------------------------------------------------
 "----------------------------------FUZZY FINDER CONFIG --------------------------------------------
 "--------------------------------------------------------------------------------------------------
@@ -163,14 +185,6 @@ let g:fzf_action = {
   \ 'ctrl-v': 'vsplit'
   \}
 
-if executable('rg')
-    let g:rg_derive_root='true'
-endif
-
-let loaded_matchparen = 1
-let mapleader = " "
-
-let g:vrfr_rg = 'true'
 
 
 "--------------------------------------------------------------------------------------------------
@@ -184,6 +198,7 @@ nnoremap <Leader>b :Buffers<CR>
 "Search files by name in current directory
 nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>p :Files<CR>
+
 
 
 "--------------------------------------------------------------------------------------------------
@@ -205,6 +220,7 @@ let g:closetag_regions = {
 let g:closetag_shortcut = '>'
 
 
+
 "--------------------------------------------------------------------------------------------------
 "----------------------------------  Markdown Preview  --------------------------------------------
 "--------------------------------------------------------------------------------------------------
@@ -216,3 +232,6 @@ let g:mkdp_browser = 'firefox'
 " Start liveserver
 nnoremap <C-t> :Bracey <CR>
 nnoremap <C-g> :BraceyStop <CR>
+
+
+
