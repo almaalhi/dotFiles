@@ -3,7 +3,6 @@ source $VIMRUNTIME/defaults.vim
 :set nu
 :set hls
 :set cmdheight=2
-:set nohlsearch
 :set tabstop=4
 :set softtabstop=4
 :set shiftwidth=4
@@ -58,15 +57,14 @@ call plug#end()
 nnoremap <leader>s :w<cr>
 nnoremap <leader>w :q<cr>
 
-" TAB in general mode will move to text buffer
+" TAB moves to next buffer
 nnoremap <TAB> :bnext<CR>
 
-" SHIFT-TAB will go back
+" SHIFT-TAB moves to previous buffer
 nnoremap <S-TAB> :bprevious<CR>
 
 " Use control-c instead of escape
 nnoremap <C-c> <Esc>
-
 
 
 "--------------------------------------------------------------------------------------------------
@@ -80,7 +78,6 @@ set termguicolors
 " Airline settings
 let g:airline#extensions#tabline#enabled = 1
 set noshowmode
-
 
 
 "--------------------------------------------------------------------------------------------------
@@ -99,10 +96,9 @@ autocmd VimEnter * if argc() == 0 && !exists('s:std_in') | NERDTree | endif
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() |
     \ quit | endif
 
-" Key remaps for split/vsplit (To match FZF)
+" Key remaps for split/vsplit (To match more closely with FZF)
 let NERDTreeMapOpenVSplit='v'
 let NERDTreeMapOpenSplit='x'
-
 
 
 "--------------------------------------------------------------------------------------------------
@@ -122,6 +118,12 @@ nnoremap <leader>o :wincmd o<CR>
 nnoremap <leader>y gT
 nnoremap <leader>u gt
 
+" Resize splits quickly
+nnoremap <C-j> :res +2<CR>
+nnoremap <C-k> :res -2<CR>
+
+nnoremap <C-h> :vert res +6<CR>
+nnoremap <C-l> :vert res -6<CR>
 
 
 "--------------------------------------------------------------------------------------------------
@@ -137,20 +139,21 @@ function! s:show_documentation()
     call CocAction('doHover')
   endif
 endfunction
+
+" Use tab for trigger completion with characters ahead and navigate.
+inoremap <silent><expr> <TAB>
+            \ pumvisible() ? "\<C-n>" :
+            \ <SID>check_back_space() ? "\<TAB>" :
+            \ coc#refresh()
+inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 function! s:check_back_space() abort
     let col = col('.') - 1
     return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-inoremap <silent><expr> <TAB>
-            \ pumvisible() ? "\<C-n>" :
-            \ <SID>check_back_space() ? "\<TAB>" :
-            \ coc#refresh()
-
 " Prettier format on save
 command! -nargs=0 Prettier :CocCommand prettier.formatFile
-inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-inoremap <silent><expr> <C-space> coc#refresh()
 
 " Tab completion for snippets
 let g:coc_snippet_next = '<tab>'
@@ -166,25 +169,23 @@ nmap <leader>gy <Plug>(coc-type-definition)
 nmap <leader>gi <Plug>(coc-implementation)
 nmap <leader>gr <Plug>(coc-references)
 nmap <leader>rr <Plug>(coc-rename)
-nmap <leader>g[ <Plug>(coc-diagnostic-prev)
-nmap <leader>g] <Plug>(coc-diagnostic-next)
+nmap <silent> [g <Plug>(coc-diagnostic-prev)
+nmap <silent> ]g <Plug>(coc-diagnostic-next)
 nmap <silent> <leader>gp <Plug>(coc-diagnostic-prev-error)
 nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 nnoremap <leader>cr :CocRestart
-
 
 
 "--------------------------------------------------------------------------------------------------
 "----------------------------------FUZZY FINDER CONFIG --------------------------------------------
 "--------------------------------------------------------------------------------------------------
 
-"Config fuzzi finder
+" Config fuzzi finder
 let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit'
   \}
-
 
 
 "--------------------------------------------------------------------------------------------------
