@@ -1,6 +1,7 @@
 source $VIMRUNTIME/defaults.vim
 :set relativenumber
 :set nu
+:set nohlsearch
 :set hls
 :set cmdheight=2
 :set tabstop=4
@@ -20,14 +21,16 @@ call plug#begin('~/.vim/plugged')
 
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
+" Language packs for Vim
 Plug 'sheerun/vim-polyglot'
-Plug 'jiangmiao/auto-pairs'
-Plug 'airblade/vim-gitgutter'
+
 Plug 'honza/vim-snippets'
-Plug 'preservim/nerdcommenter'
-Plug 'alvan/vim-closetag'
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'mattn/emmet-vim'
+Plug 'alvan/vim-closetag'
+
+Plug 'preservim/nerdcommenter'
+
+Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
 Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
 
 " Fuzzy Finder
@@ -39,11 +42,12 @@ Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'crusoexia/vim-monokai'
 
-" NERDTree
+" NERDTree and git add-ons
 Plug 'preservim/nerdtree'
 Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'airblade/vim-gitgutter'
 Plug 'scrooloose/nerdtree-project-plugin'
 
 call plug#end()
@@ -120,9 +124,9 @@ nnoremap <leader>u gt
 
 " Resize splits quickly
 nnoremap <C-j> :res +2<CR>
-nnoremap <C-k> :res -2<CR>
+nnoremap <C-h> :res -2<CR>
 
-nnoremap <C-h> :vert res +6<CR>
+nnoremap <C-k> :vert res +6<CR>
 nnoremap <C-l> :vert res -6<CR>
 
 
@@ -176,6 +180,26 @@ nmap <silent> <leader>gn <Plug>(coc-diagnostic-next-error)
 nnoremap <leader>cr :CocRestart
 
 
+
+" alvan/close-tag settings
+"
+let g:closetag_filetypes = 'html,xhtml,jsx,javascript'
+let g:closetag_xhtml_filetypes = 'xhtml,javascript'
+
+let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
+    \ 'typescriptreact': 'jsxRegion,tsxRegion',
+    \ 'javascriptreact': 'jsxRegion',
+    \ }
+
+" Shortcut for closing tags, default is '>'
+"
+let g:closetag_shortcut = '>'
+
+" Should change <CR> to close tag and auto-format
+ inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
 "--------------------------------------------------------------------------------------------------
 "----------------------------------FUZZY FINDER CONFIG --------------------------------------------
 "--------------------------------------------------------------------------------------------------
@@ -199,26 +223,6 @@ nnoremap <Leader>b :Buffers<CR>
 "Search files by name in current directory
 nnoremap <C-p> :GFiles<CR>
 nnoremap <Leader>p :Files<CR>
-
-
-
-"--------------------------------------------------------------------------------------------------
-"----------------------------------  HTML vim-closetag --------------------------------------------
-"--------------------------------------------------------------------------------------------------
-
-let g:closetag_filenames = '*.html'
-let g:closetag_filetypes = 'html,jsx,javascript'
-
-" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
-let g:closetag_emptyTags_caseSensitive = 0
-" Disables auto-close if not in a valid region (based on filetype)
-let g:closetag_regions = {
-    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-    \ 'javascript.jsx': 'jsxRegion',
-    \ }
-
-" Shortcut for closing tags, default is '>'
-let g:closetag_shortcut = '>'
 
 
 
