@@ -182,13 +182,11 @@ nnoremap <leader>cr :CocRestart
 
 
 " alvan/close-tag settings
-"
+let g:closetag_filenames = '*.html'
 let g:closetag_filetypes = 'html,xhtml,jsx,javascript'
 let g:closetag_xhtml_filetypes = 'xhtml,javascript'
 
 let g:closetag_regions = {
-    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
-    \ 'javascript.jsx': 'jsxRegion',
     \ 'typescriptreact': 'jsxRegion,tsxRegion',
     \ 'javascriptreact': 'jsxRegion',
     \ }
