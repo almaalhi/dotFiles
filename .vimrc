@@ -14,6 +14,7 @@ source $VIMRUNTIME/defaults.vim
 :set encoding=utf-8
 :set hidden
 :set nowrap
+:set termguicolors
 :let mapleader = " "
 
 " VIM-Plug plugins list
@@ -27,6 +28,8 @@ Plug 'sheerun/vim-polyglot'
 Plug 'honza/vim-snippets'
 Plug 'mattn/emmet-vim'
 Plug 'alvan/vim-closetag'
+
+Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 Plug 'preservim/nerdcommenter'
 
@@ -77,7 +80,6 @@ nnoremap <C-c> <Esc>
 
 syntax on
 colorscheme monokai
-set termguicolors
 
 " Airline settings
 let g:airline#extensions#tabline#enabled = 1
@@ -183,10 +185,18 @@ nnoremap <leader>cr :CocRestart
 
 " alvan/close-tag settings
 let g:closetag_filenames = '*.html'
-let g:closetag_filetypes = 'html,xhtml,jsx,javascript'
-let g:closetag_xhtml_filetypes = 'xhtml,javascript'
+let g:closetag_filetypes = 'html,jsx,javascript'
+
+" integer value [0|1]
+" This will make the list of non-closing tags case-sensitive (e.g. `<Link>` will be closed while `<link>` won't.)
+
+let g:closetag_emptyTags_caseSensitive = 0
+
+" Disables auto-close if not in a "valid" region (based on filetype)
 
 let g:closetag_regions = {
+    \ 'typescript.tsx': 'jsxRegion,tsxRegion',
+    \ 'javascript.jsx': 'jsxRegion',
     \ 'typescriptreact': 'jsxRegion,tsxRegion',
     \ 'javascriptreact': 'jsxRegion',
     \ }
@@ -237,4 +247,8 @@ nnoremap <C-t> :Bracey <CR>
 nnoremap <C-g> :BraceyStop <CR>
 
 
+
+"--------------------------------------------------------------------------------------------------
+"----------------------------------  Hexokinase Colorizer  ----------------------------------------
+"--------------------------------------------------------------------------------------------------
 
