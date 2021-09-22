@@ -1,8 +1,6 @@
-source $VIMRUNTIME/defaults.vim
 :set relativenumber
 :set nu
 :set nohlsearch
-:set hls
 :set cmdheight=2
 :set tabstop=4
 :set softtabstop=4
@@ -14,7 +12,7 @@ source $VIMRUNTIME/defaults.vim
 :set encoding=utf-8
 :set hidden
 :set nowrap
-:set termguicolors
+:set noshowmode
 :let mapleader = " "
 
 " VIM-Plug plugins list
@@ -33,9 +31,6 @@ Plug 'rrethy/vim-hexokinase', { 'do': 'make hexokinase' }
 
 Plug 'preservim/nerdcommenter'
 
-Plug 'iamcco/markdown-preview.nvim', { 'do': 'cd app && yarn install'  }
-Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
-
 " Fuzzy Finder
 Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf.vim'
@@ -44,6 +39,7 @@ Plug 'junegunn/fzf.vim'
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
 Plug 'crusoexia/vim-monokai'
+Plug 'ghifarit53/tokyonight-vim'
 
 " NERDTree and git add-ons
 Plug 'preservim/nerdtree'
@@ -51,7 +47,8 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'tiagofumo/vim-nerdtree-syntax-highlight'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'airblade/vim-gitgutter'
-Plug 'scrooloose/nerdtree-project-plugin'
+" Plug 'scrooloose/nerdtree-project-plugin' **Commented out on 9/18/2021 due
+" to bug causing error**
 
 call plug#end()
 
@@ -78,12 +75,14 @@ nnoremap <C-c> <Esc>
 "-------------------------------------- Theme Settings  -------------------------------------------
 "--------------------------------------------------------------------------------------------------
 
-syntax on
-colorscheme monokai
+:set termguicolors
+:syntax on
+let g:tokyonight_style = 'storm' " available: night, storm
+:colorscheme tokyonight
+
 
 " Airline settings
 let g:airline#extensions#tabline#enabled = 1
-set noshowmode
 
 
 "--------------------------------------------------------------------------------------------------
@@ -252,3 +251,4 @@ nnoremap <C-g> :BraceyStop <CR>
 "----------------------------------  Hexokinase Colorizer  ----------------------------------------
 "--------------------------------------------------------------------------------------------------
 
+let g:Hexokinase_highlighters = [ 'backgroundfull' ]
